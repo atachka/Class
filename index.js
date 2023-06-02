@@ -1,10 +1,8 @@
 import express from "express";
 import axios from "axios";
-import bodyParser from "body-parser";
-const port = 3000;
 const app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
+
 app.get("/", async (req, res) => {
   class OurClass {
     constructor(text) {
@@ -117,14 +115,5 @@ app.get("/", async (req, res) => {
   res.json({ data });
 });
 
-app.get("/about", (req, res) => {
-  res.send("About page");
-});
-
-app.use((req, res) => {
-  res.status(404).send("Page not found");
-});
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
+const port = process.env.PORT || 9001;
+app.listen(port, () => console.log(`Listening to port ${port}`));
